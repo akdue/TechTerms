@@ -1,0 +1,73 @@
+# mkdocs.yml — Root configuration for MkDocs (Material)
+# This config builds an Arabic (RTL) docs site with clean LTR code blocks.
+
+site_name: "مصطلحات برمجية"                       # Header title + <title>.
+site_description: "Arabic tech terms with clean RTL + LTR code blocks"
+site_url: ""                                       # Public URL (leave empty for local dev).
+site_author: "Abdalkreem"
+
+# (Optional) Repo info — shows an icon/link in the header/footer (Material feature).
+repo_name: "TechTerms"
+repo_url: "https://github.com/your-account/arabic-tech-terms"
+
+theme:
+  name: material
+  language: ar                                      # Arabic UI strings.
+  features:
+    - content.code.copy                             # Copy button on code blocks.
+    - navigation.expand
+    - navigation.top
+    - toc.integrate
+  icon:
+    repo: fontawesome/brands/github                 # Repo icon in header.
+
+# Sidebar structure (order matters).
+nav:
+  - "الرئيسية": index.md
+  - "مصطلحات":
+      - "SSMS": ssms.md
+      - "OOP": oop.md
+
+# Keep Arabic text RTL while forcing code to LTR (see stylesheets/rtl.css).
+extra_css:
+  - stylesheets/rtl.css
+
+# Plugins
+plugins:
+  - search
+
+# Markdown extensions
+markdown_extensions:
+  - admonition                     # Callouts (!!! note/warning/tip)
+  - attr_list                      # {: dir="ltr" } etc.
+  - md_in_html                     # Parse MD inside simple HTML blocks
+  - toc:
+      permalink: true              # Anchor links for headings
+  - tables
+  - footnotes
+  - pymdownx.superfences           # Robust fenced code blocks
+  - pymdownx.highlight:            # Better syntax highlighting
+      anchor_linenums: true
+      linenums: false              # Set true to show line numbers
+      auto_title: true
+
+# Watch extra folders (so live-reload picks up CSS changes).
+watch:
+  - stylesheets
+
+# Hide the "Made with Material for MkDocs" generator line and add social/footer.
+extra:
+  generator: false                 # <— Hides "Made with Material for MkDocs"
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/your-account/arabic-tech-terms
+      name: GitHub
+
+# Optional footer copyright
+copyright: "© 2025 Abdalkreem — جميع الحقوق محفوظة"
+
+# Tips:
+# - Serve locally (live reload): py -m mkdocs serve
+# - Watch CSS explicitly (optional): py -m mkdocs serve -w stylesheets
+# - Build production site: py -m mkdocs build
+# - Deploy to GitHub Pages: py -m mkdocs gh-deploy --force

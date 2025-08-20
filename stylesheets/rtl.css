@@ -1,0 +1,42 @@
+/* stylesheets/rtl.css — Keep Arabic content RTL, but code blocks LTR to avoid BiDi issues. */
+
+/* Arabic-first font stack (fallbacks are fine). */
+:root {
+  --md-text-font: "Cairo", "Tajawal", "Noto Naskh Arabic", system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+  --md-code-font: "Cascadia Mono", "Cascadia Code", "Fira Code", Consolas, "Courier New", monospace;
+  /* monospace for code */
+}
+
+/* Main content flows RTL and right-aligned for Arabic text. */
+.md-typeset,
+.md-content {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Keep code blocks strictly LTR and isolated from surrounding RTL context. */
+.md-typeset .highlight,
+.md-typeset .highlight pre,
+.md-typeset .highlight code,
+.md-typeset pre,
+.md-typeset code {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: isolate !important;
+  /* Prevent Arabic inside comments from flipping punctuation. */
+  white-space: pre;
+  /* Preserve spaces/indentation. */
+}
+
+/* Tables: headers RTL, but code snippets inside cells remain LTR (handled above). */
+.md-typeset table {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Lists: tweak margins so bullets/indices align on the right in RTL. */
+.md-typeset ul,
+.md-typeset ol {
+  margin-right: 1.2em;
+  margin-left: 0.6em;
+}
