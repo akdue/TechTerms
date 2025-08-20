@@ -8,7 +8,7 @@ site_author: "Abdalkreem"
 
 # (Optional) Repo info — shows an icon/link in the header/footer (Material feature).
 repo_name: "TechTerms"
-repo_url: "https://github.com/your-account/arabic-tech-terms"
+repo_url: "https://github.com/akdue/TechTerms"
 
 theme:
   name: material
@@ -30,7 +30,7 @@ nav:
 
 # Keep Arabic text RTL while forcing code to LTR (see stylesheets/rtl.css).
 extra_css:
-  - stylesheets/rtl.css
+  - stylesheets/style.css
 
 # Plugins
 plugins:
@@ -60,11 +60,11 @@ extra:
   generator: false                 # <— Hides "Made with Material for MkDocs"
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/your-account/arabic-tech-terms
+      link: https://github.com/akdue/TechTerms
       name: GitHub
 
 # Optional footer copyright
-copyright: "© 2025 Abdalkreem — جميع الحقوق محفوظة"
+copyright: "© 2025 Abdalkreem AbuAresh"
 
 # Tips:
 # - Serve locally (live reload): py -m mkdocs serve
