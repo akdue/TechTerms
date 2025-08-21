@@ -1,100 +1,69 @@
 # mkdocs.yml — Root configuration for MkDocs (Material)
-# Arabic RTL site + clean LTR code blocks + smart nav & plugins.
+# This config builds an Arabic (RTL) docs site with clean LTR code blocks.
 
-site_name: "مصطلحات برمجية"
+site_name: "مصطلحات برمجية"                       # Header title + <title>.
 site_description: "Arabic tech terms with clean RTL + LTR code blocks"
-site_url: "https://akdue.github.io/TechTerms/"      # مهم لروابط السيو والـ canonical
+site_url: ""                                       # Public URL (leave empty for local dev).
 site_author: "Abdalkreem"
-use_directory_urls: true
 
-# (Optional) Repo info — shows an icon/link in the header/footer (Material feature).
+#Repo info — shows an icon/link in the header/footer (Material feature).
 repo_name: "TechTerms"
 repo_url: "https://github.com/akdue/TechTerms"
-edit_uri: "edit/main/docs/"                          # زر "عدّل هذه الصفحة" يعمل مباشرة
 
 theme:
   name: material
-  language: ar
+  language: ar                                      # Arabic UI strings.
   features:
-    # التنقّل وتجربة التصفّح
-    - navigation.instant
-    - navigation.instant.progress
-    - navigation.tracking
+    - content.code.copy                             # Copy button on code blocks.
+    - navigation.expand
     - navigation.top
-    - toc.integrate
+    - navigation.indexes                            # يفعّل صفحات index.md للأقسام
+    #- toc.integrate                                 # يدمج جدول المحتويات في الصفحات
   icon:
     repo: fontawesome/brands/github                 # Repo icon in header.
 
-# Sidebar structure (order matters).
-nav:
-  - "الرئيسية": index.md
-  - "مصطلحات":
-      - "SSMS": ssms.md
-      - "OOP": oop.md
+# لاحظ: تمت إزالة nav بالكامل ليُبنى تلقائيًا من بنية docs/
 
-# Keep Arabic text RTL while forcing code to LTR (see stylesheets/rtl.css).
+# Keep Arabic text RTL while forcing code to LTR (see stylesheets/style.css).
 extra_css:
   - stylesheets/style.css
 
-# JS إضافي (اختياري لاحقًا)
-# extra_javascript:
-#   - javascripts/custom.js
-
 # Plugins
 plugins:
-  - search:
-      lang: ar
-      separator: '[\s\-\.]+'
-  - awesome-pages                         # ترتيب/تجميع تلقائي للـ nav من .pages
-  - glightbox                             # Lightbox للصور
-  - git-revision-date-localized:
-      enable_creation_date: true
-      fallback_to_build_date: true
-      type: date
-      locale: ar
-  - minify:
-      minify_html: true
+  - search
 
 # Markdown extensions
 markdown_extensions:
-  - admonition
-  - attr_list
-  - md_in_html
+  - admonition                     # Callouts (!!! note/warning/tip)
+  - attr_list                      # {: dir="ltr" } etc.
+  - md_in_html                     # Parse MD inside simple HTML blocks
   - toc:
-      permalink: true
+      permalink: true              # Anchor links for headings
   - tables
   - footnotes
-  - abbr
-  - pymdownx.superfences
-  - pymdownx.highlight:
+  - pymdownx.superfences           # Robust fenced code blocks
+  - pymdownx.highlight:            # Better syntax highlighting
       anchor_linenums: true
-      linenums: false
+      linenums: false              # Set true to show line numbers
       auto_title: true
-  - pymdownx.details                      # ??? collapsible blocks (إظهار/إخفاء)
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.tasklist:
-      custom_checkbox: true
-
-  - pymdownx.keys                         # ⌘K مثلًا
-  - pymdownx.snippets                     # إدراج مقاطع مشتركة
-  - pymdownx.inlinehilite
-  - pymdownx.mark
-  - pymdownx.tilde
-  - pymdownx.caret
 
 # Watch extra folders (so live-reload picks up CSS changes).
 watch:
   - stylesheets
 
-
-# إخفاء "Made with Material for MkDocs" + أيقونات اجتماعية
+# Hide the "Made with Material for MkDocs" generator line and add social/footer.
 extra:
-  generator: false
+  generator: false                 # <— Hides "Made with Material for MkDocs"
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/akdue/TechTerms
       name: GitHub
 
-# حقوق
+# Optional footer copyright
 copyright: "© 2025 Abdalkreem AbuAresh"
+
+# Tips:
+# - Serve locally (live reload): py -m mkdocs serve
+# - Watch CSS explicitly (optional): py -m mkdocs serve -w stylesheets
+# - Build production site: py -m mkdocs build
+# - Deploy to GitHub Pages: py -m mkdocs gh-deploy --force
