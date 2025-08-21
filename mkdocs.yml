@@ -6,7 +6,7 @@ site_description: "Arabic tech terms with clean RTL + LTR code blocks"
 site_url: ""                                       # Public URL (leave empty for local dev).
 site_author: "Abdalkreem"
 
-# (Optional) Repo info — shows an icon/link in the header/footer (Material feature).
+#Repo info — shows an icon/link in the header/footer (Material feature).
 repo_name: "TechTerms"
 repo_url: "https://github.com/akdue/TechTerms"
 
@@ -17,18 +17,14 @@ theme:
     - content.code.copy                             # Copy button on code blocks.
     - navigation.expand
     - navigation.top
+    - navigation.indexes                            # يفعّل صفحات index.md للأقسام
     - toc.integrate
   icon:
     repo: fontawesome/brands/github                 # Repo icon in header.
 
-# Sidebar structure (order matters).
-nav:
-  - "الرئيسية": index.md
-  - "مصطلحات":
-      - "SSMS": ssms.md
-      - "OOP": oop.md
+# لاحظ: تمت إزالة nav بالكامل ليُبنى تلقائيًا من بنية docs/
 
-# Keep Arabic text RTL while forcing code to LTR (see stylesheets/rtl.css).
+# Keep Arabic text RTL while forcing code to LTR (see stylesheets/style.css).
 extra_css:
   - stylesheets/style.css
 
