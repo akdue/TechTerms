@@ -88,3 +88,10 @@ class Program
 ## سؤال سريع للتثبيت
 لو عندك `Animal` وورثت منه `Cat` و`Dog` وكل واحد عنده `Speak()` مختلف… أي مفهوم يشرح هذا السلوك؟  
 > جرّب تجاوب بكلمة واحدة: **Encapsulation** أو **Inheritance** أو **Polymorphism**.
+<details>
+  <summary><strong>عرض الإجابة</strong></summary>
+
+**Polymorphism (تعدد الأشكال).**  
+السبب: نفس الواجهة `Speak()` لكن السلوك يختلف حسب النوع الفعلي للكائن (Cat/Dog).
+
+</details>
