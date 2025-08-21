@@ -31,6 +31,7 @@ extra_css:
 # Plugins
 plugins:
   - search
+  - open-in-new-tab
 
 # Markdown extensions
 markdown_extensions:
