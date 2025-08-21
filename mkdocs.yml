@@ -7,7 +7,7 @@ site_url: "https://akdue.github.io/TechTerms/"      # مهم لروابط الس
 site_author: "Abdalkreem"
 use_directory_urls: true
 
-# Repo info (يظهر زرّ عرض المصدر + تعديل الصفحة)
+# (Optional) Repo info — shows an icon/link in the header/footer (Material feature).
 repo_name: "TechTerms"
 repo_url: "https://github.com/akdue/TechTerms"
 edit_uri: "edit/main/docs/"                          # زر "عدّل هذه الصفحة" يعمل مباشرة
@@ -21,29 +21,18 @@ theme:
     - navigation.instant.progress
     - navigation.tracking
     - navigation.top
-    - navigation.path                                 # breadcrumbs
-    - navigation.sections                             # تقسيمات داخل الـ sidebar
-    # دمج الفهرس في الشريط الجانبي (بدلاً من يمين الصفحة)
-    #- toc.integrate
-    #- toc.follow
-    # مميزات البحث
-    - search.suggest
-    - search.highlight
-    - search.share
-    # الكود
-    - content.code.copy
-    - content.code.select
-    - content.code.annotate                           # تعليقات مرقّمة على الأسطر
-    # أزرار المصدر/التعديل
-    - content.action.edit
-    - content.action.view
+    - toc.integrate
   icon:
-    repo: fontawesome/brands/github
-  palette:
-    - scheme: default
+    repo: fontawesome/brands/github                 # Repo icon in header.
 
+# Sidebar structure (order matters).
+nav:
+  - "الرئيسية": index.md
+  - "مصطلحات":
+      - "SSMS": ssms.md
+      - "OOP": oop.md
 
-# CSS مخصّص (لـ LTR للكود وخطوط أجمل)
+# Keep Arabic text RTL while forcing code to LTR (see stylesheets/rtl.css).
 extra_css:
   - stylesheets/style.css
 
