@@ -1,6 +1,8 @@
 تشغيل على جميع الواجهات 
-ليفتح من الهاتف مثلا
+ (من الهاتف مثلا)
 CMD
 mkdocs serve -a 0.0.0.0:8000
 
+
+لنشر المشروع الخاص بـ MkDocs على GitHub Pages مباشرة
 py -m mkdocs gh-deploy
