@@ -6,3 +6,16 @@ mkdocs serve -a 0.0.0.0:8000
 
 لنشر المشروع الخاص بـ MkDocs على GitHub Pages مباشرة
 py -m mkdocs gh-deploy
+
+
+# الإضافات 
+
+#مجمعة
+py -m pip install mkdocs-awesome-pages-plugin mkdocs-glightbox mkdocs-git-revision-date-localized-plugin mkdocs-minify-plugin
+
+pip install mkdocs-material
+pip install mkdocs-awesome-pages-plugin
+pip install mkdocs-glightbox
+pip install mkdocs-git-revision-date-localized-plugin
+pip install mkdocs-minify-plugin
+

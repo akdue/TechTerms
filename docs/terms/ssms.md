@@ -1,4 +1,4 @@
-# **SSMS — SQL Server Management Studio**
+# **SSMS**
 
 ## الترجمة الحرفية  
 **SQL Server Management Studio** — بيئة متكاملة لإدارة خادم SQL.

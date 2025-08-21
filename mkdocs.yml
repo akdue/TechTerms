@@ -1,73 +1,111 @@
 # mkdocs.yml — Root configuration for MkDocs (Material)
-# This config builds an Arabic (RTL) docs site with clean LTR code blocks.
+# Arabic RTL site + clean LTR code blocks + smart nav & plugins.
 
-site_name: "مصطلحات برمجية"                       # Header title + <title>.
+site_name: "مصطلحات برمجية"
 site_description: "Arabic tech terms with clean RTL + LTR code blocks"
-site_url: ""                                       # Public URL (leave empty for local dev).
+site_url: "https://akdue.github.io/TechTerms/"      # مهم لروابط السيو والـ canonical
 site_author: "Abdalkreem"
+use_directory_urls: true
 
-# (Optional) Repo info — shows an icon/link in the header/footer (Material feature).
+# Repo info (يظهر زرّ عرض المصدر + تعديل الصفحة)
 repo_name: "TechTerms"
 repo_url: "https://github.com/akdue/TechTerms"
+edit_uri: "edit/main/docs/"                          # زر "عدّل هذه الصفحة" يعمل مباشرة
 
 theme:
   name: material
-  language: ar                                      # Arabic UI strings.
+  language: ar
   features:
-    - content.code.copy                             # Copy button on code blocks.
-    - navigation.expand
+    # التنقّل وتجربة التصفّح
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
     - navigation.top
-    - toc.integrate
+    - navigation.path                                 # breadcrumbs
+    - navigation.sections                             # تقسيمات داخل الـ sidebar
+    # دمج الفهرس في الشريط الجانبي (بدلاً من يمين الصفحة)
+    #- toc.integrate
+    #- toc.follow
+    # مميزات البحث
+    - search.suggest
+    - search.highlight
+    - search.share
+    # الكود
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate                           # تعليقات مرقّمة على الأسطر
+    # أزرار المصدر/التعديل
+    - content.action.edit
+    - content.action.view
   icon:
-    repo: fontawesome/brands/github                 # Repo icon in header.
+    repo: fontawesome/brands/github
+  palette:
+    - scheme: default
 
-# Sidebar structure (order matters).
-nav:
-  - "الرئيسية": index.md
-  - "مصطلحات":
-      - "SSMS": ssms.md
-      - "OOP": oop.md
 
-# Keep Arabic text RTL while forcing code to LTR (see stylesheets/rtl.css).
+# CSS مخصّص (لـ LTR للكود وخطوط أجمل)
 extra_css:
   - stylesheets/style.css
 
+# JS إضافي (اختياري لاحقًا)
+# extra_javascript:
+#   - javascripts/custom.js
+
 # Plugins
 plugins:
-  - search
+  - search:
+      lang: ar
+      separator: '[\s\-\.]+'
+  - awesome-pages                         # ترتيب/تجميع تلقائي للـ nav من .pages
+  - glightbox                             # Lightbox للصور
+  - git-revision-date-localized:
+      enable_creation_date: true
+      fallback_to_build_date: true
+      type: date
+      locale: ar
+  - minify:
+      minify_html: true
 
 # Markdown extensions
 markdown_extensions:
-  - admonition                     # Callouts (!!! note/warning/tip)
-  - attr_list                      # {: dir="ltr" } etc.
-  - md_in_html                     # Parse MD inside simple HTML blocks
+  - admonition
+  - attr_list
+  - md_in_html
   - toc:
-      permalink: true              # Anchor links for headings
+      permalink: true
   - tables
   - footnotes
-  - pymdownx.superfences           # Robust fenced code blocks
-  - pymdownx.highlight:            # Better syntax highlighting
+  - abbr
+  - pymdownx.superfences
+  - pymdownx.highlight:
       anchor_linenums: true
-      linenums: false              # Set true to show line numbers
+      linenums: false
       auto_title: true
+  - pymdownx.details                      # ??? collapsible blocks (إظهار/إخفاء)
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+  - pymdownx.keys                         # ⌘K مثلًا
+  - pymdownx.snippets                     # إدراج مقاطع مشتركة
+  - pymdownx.inlinehilite
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.caret
 
 # Watch extra folders (so live-reload picks up CSS changes).
 watch:
   - stylesheets
 
-# Hide the "Made with Material for MkDocs" generator line and add social/footer.
+
+# إخفاء "Made with Material for MkDocs" + أيقونات اجتماعية
 extra:
-  generator: false                 # <— Hides "Made with Material for MkDocs"
+  generator: false
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/akdue/TechTerms
       name: GitHub
 
-# Optional footer copyright
+# حقوق
 copyright: "© 2025 Abdalkreem AbuAresh"
-
-# Tips:
-# - Serve locally (live reload): py -m mkdocs serve
-# - Watch CSS explicitly (optional): py -m mkdocs serve -w stylesheets
-# - Build production site: py -m mkdocs build
-# - Deploy to GitHub Pages: py -m mkdocs gh-deploy --force
