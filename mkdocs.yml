@@ -13,6 +13,24 @@ repo_url: "https://github.com/akdue/TechTerms"
 theme:
   name: material
   language: ar                                      # Arabic UI strings.
+
+  # ✅ Light/Dark palettes + toggle (respects system preference)
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: "تفعيل الوضع الداكن"
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/white-balance-sunny
+        name: "تفعيل الوضع الفاتح"
+
   features:
     - content.code.copy                             # Copy button on code blocks.
     - navigation.expand
@@ -22,7 +40,7 @@ theme:
   icon:
     repo: fontawesome/brands/github                 # Repo icon in header.
 
-# لاحظ: تمت إزالة nav بالكامل ليُبنى تلقائيًا من بنية docs/
+# تمت إزالة nav بالكامل ليُبنى تلقائيًا من بنية docs/
 
 # Keep Arabic text RTL while forcing code to LTR (see stylesheets/style.css).
 extra_css:

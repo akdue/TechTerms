@@ -11,5 +11,3 @@ py -m mkdocs gh-deploy
 # الإضافات 
 
 pip install mkdocs-open-in-new-tab
-
-
