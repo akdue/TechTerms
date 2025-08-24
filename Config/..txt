@@ -1,5 +1,5 @@
 تشغيل على جميع الواجهات 
- (من الهاتف مثلا)
+
 CMD
 mkdocs serve -a 0.0.0.0:8000
 
@@ -10,4 +10,11 @@ py -m mkdocs gh-deploy
 
 # الإضافات 
 
+# الأساسيات (MkDocs + ثيم Material)
+pip install mkdocs mkdocs-material
+
+
+# open-in-new-tab
 pip install mkdocs-open-in-new-tab
+
+
