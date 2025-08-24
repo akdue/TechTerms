@@ -3272,87 +3272,126 @@
 <h1 id="_1"><div style="background-color: black; color: white; padding: 10px"> <span>الموقع في مرحلة <strong>بيتا</strong> التجريبية — قد يحتاج المحتوى للتدقيق .</span></div><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <hr />
 <h1 id="_2">مرحبًا 👋<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
-<h2 id="_3">هذا مستودع مصطلحات برمجية باللغة العربية<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<h3 id="c">يميل بالشرح لاستخدام لغة <strong>#C</strong><a class="headerlink" href="#c" title="Permanent link">&para;</a></h3>
-<h2 id="_4">يمكنك البدء باستخدام الموقع بالبحث او تصفح القائمة يمين الموقع<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<h1 id="_5">لتشغيل المشروع على جهازك بدون انترنت<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h1>
+<h1 id="programming-terms">مصطلحات برمجية (Programming Terms)<a class="headerlink" href="#programming-terms" title="Permanent link">&para;</a></h1>
+<p>مستودع مصطلحات برمجية باللغة العربية مع التركيز على أمثلة من لغة #C.</p>
+<p>هذا المشروع مبني باستخدام <a href="https://www.mkdocs.org/">MkDocs</a> و <a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a>.</p>
+<h2 id="_3">تشغيل محليًا<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>لتشغيل الموقع على جهازك:</p>
+<ol>
+<li>تأكد من أن Python و pip مثبتان على جهازك.</li>
+<li>قم بتثبيت المتطلبات:
+    <div class="highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>mkdocs-material
+</code></pre></div></li>
+<li>شغّل سيرفر التطوير المحلي:
+    <div class="highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>mkdocs<span class="w"> </span>serve
+</code></pre></div></li>
+<li>افتح الرابط <code>http://127.0.0.1:8000/</code> في متصفحك.</li>
+</ol>
+<h2 id="_4">المساهمة<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>لإضافة مصطلح جديد:</p>
+<ol>
+<li>أنشئ ملف Markdown جديد داخل مجلد <code>docs/terms/</code>.</li>
+<li>اتبع القالب الموجود في <code>docs/index.md</code> لتوحيد شكل المحتوى.</li>
+<li>أرسل Pull Request بالتغييرات.</li>
+</ol>
+<h2 id="_5">معلومات إضافية<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ul>
-<li>شغّل المشروع محليًا بالأوامر في الأسفل.</li>
-<li>أضف مصطلحات جديدة في مجلد <code>docs/</code> كملفات Markdown (<code>.md</code>)</li>
-<li>شاهد مثال في الصفحة الجانبية.</li>
+<li><strong>Abdalkreem Abuaresh</strong></li>
+<li><strong>رابط المستودع:</strong> <a href="https://github.com/akdue/TechTerms">https://github.com/akdue/TechTerms</a></li>
 </ul>
-<h2 id="_6">تشغيل محليًا<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>mkdocs-material
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>mkdocs<span class="w"> </span>serve
+<!-- ## هذا مستودع مصطلحات برمجية باللغة العربية 
+
+### يميل بالشرح لاستخدام لغة **#C** 
+
+## يمكنك البدء باستخدام الموقع بالبحث او تصفح القائمة يمين الموقع
+
+
+
+
+
+
+# لتشغيل المشروع على جهازك بدون انترنت
+- شغّل المشروع محليًا بالأوامر في الأسفل.
+- أضف مصطلحات جديدة في مجلد `docs/` كملفات Markdown (`.md`)
+- شاهد مثال في الصفحة الجانبية.
+
+## تشغيل محليًا
+
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span>mkdocs-material
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>mkdocs<span class="w"> </span>serve
 </code></pre></div>
-<p>ثم افتح الرابط الذي يظهر لك (عادةً: <code>http://127.0.0.1:8000/</code>).</p>
-<blockquote>
-<p>ملاحظة: يمكن تعديل التصميم عبر الملف <code>stylesheets/style.css</code>.</p>
-</blockquote>
-<h2 id="_7">مثال على القالب<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
-<div class="highlight"><span class="filename">Markdown</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gh"># **OOP — Object-Oriented Programming**</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="gu">## التسمية المعتمدة (EN ↔ AR)</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="gu">## تعريف موجز</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>EN
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>AR
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>---
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="gu">## لماذا **ضع المصطلح</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>---
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="gu">## أساسيات أو ركائز للمصطلح إن وجدت</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>---
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="gu">## مثال من الكود C#</span>
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>```csharp
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>//Code
+
+ثم افتح الرابط الذي يظهر لك (عادةً: `http://127.0.0.1:8000/`).
+
+> ملاحظة: يمكن تعديل التصميم عبر الملف `stylesheets/style.css`.
+
+## مثال على القالب
+
+<div class="highlight"><span class="filename">Markdown</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gh"># **OOP — Object-Oriented Programming**</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="gu">## التسمية المعتمدة (EN ↔ AR)</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="gu">## تعريف موجز</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>EN
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>AR
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>---
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="gu">## لماذا **ضع المصطلح</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>---
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="gu">## أساسيات أو ركائز للمصطلح إن وجدت</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>---
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="gu">## مثال من الكود C#</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>```csharp
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>//Code
 </code></pre></div>
-<hr />
-<div class="highlight"><span class="filename">Markdown</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gu">## مصطلحات مرتبطة وتمييزات سريعة</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>---
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="gu">## متى أستخدمه؟ ومتى أتجنّبه؟</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>---
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="gu">## أخطاء شائعة</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>---
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="gu">## خلاصة</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>---
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="gu">## جدول مقارنة مختصر</span>
-<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>
-<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>| المفهوم         | الغرض الرئيسي | ملاحظات مهمة |
-<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>| --------------- | ------------- | ------------ |
-<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>| [<span class="nt">Name</span>](<span class="na">Name.md</span>) | ------        | ------       |
-<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>| <span class="gs">**Name**</span>        | <span class="gs">**---**</span>       | <span class="gs">**---**</span>      |
-<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>| [<span class="nt">Name</span>](<span class="na">Name.md</span>) | ------        | ------       |
-<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>
-<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>---
-<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>
-<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="gu">## سؤال تثبيت (إجابة مخفية)</span>
-<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>السؤال هنا
-<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>&lt;details&gt;
-<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>  &lt;summary&gt;&lt;strong&gt;إظهار الإجابة&lt;/strong&gt;&lt;/summary&gt;
-<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>الاجابة هنا
-<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>&lt;/details&gt;
-</code></pre></div>
+
+---
+```markdown
+## مصطلحات مرتبطة وتمييزات سريعة
+
+
+---
+
+## متى أستخدمه؟ ومتى أتجنّبه؟
+
+
+---
+
+## أخطاء شائعة
+
+
+---
+
+## خلاصة
+
+
+---
+
+## جدول مقارنة مختصر
+
+| المفهوم         | الغرض الرئيسي | ملاحظات مهمة |
+| --------------- | ------------- | ------------ |
+| [Name](Name.md) | ------        | ------       |
+| **Name**        | **---**       | **---**      |
+| [Name](Name.md) | ------        | ------       |
+
+---
+
+## سؤال تثبيت (إجابة مخفية)
+السؤال هنا
+<details>
+  <summary><strong>إظهار الإجابة</strong></summary>
+الاجابة هنا
+</details>
+``` -->
 
 
 
