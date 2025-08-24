@@ -13,6 +13,8 @@ repo_url: "https://github.com/akdue/TechTerms"
 theme:
   name: material
   language: ar                                      # Arabic UI strings.
+  #custom_dir: overrides         # ← مجلّد القوالب المخصّصة
+
 
   # ✅ Light/Dark palettes + toggle (respects system preference)
   palette:
@@ -36,7 +38,10 @@ theme:
     - navigation.expand
     - navigation.top
     - navigation.indexes                            # يفعّل صفحات index.md للأقسام
+    #- header.autohide           # ← يخفي الهيدر عند التمرير (Add For Beta)
+    #- announce.dismiss          # ← يضيف زر إغلاق للإشعار (Add For Beta)
     #- toc.integrate                                 # يدمج جدول المحتويات في الصفحات
+    
   icon:
     repo: fontawesome/brands/github                 # Repo icon in header.
 
@@ -50,6 +55,7 @@ extra_css:
 plugins:
   - search
   - open-in-new-tab
+  - meta
 
 # Markdown extensions
 markdown_extensions:
@@ -77,6 +83,8 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/akdue/TechTerms
       name: GitHub
+
+
 
 # Optional footer copyright
 copyright: "© 2025 Abdalkreem AbuAresh"
