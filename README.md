@@ -1,6 +1,6 @@
-# مصطلحات برمجية (Programming Terms)
+# مصطلحات تقنية (Technical Terms)
 
-مستودع مصطلحات برمجية باللغة العربية مع التركيز على أمثلة من لغة #C.
+مستودع مصطلحات تقنية وبرمجية باللغة العربية مع التركيز على أمثلة من لغة #C.
 
 هذا المشروع مبني باستخدام [MkDocs](https://www.mkdocs.org/) و [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
 
