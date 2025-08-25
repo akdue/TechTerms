@@ -24,7 +24,7 @@
     
     
       
-        <title>Lambda Expiration - مصطلحات تقنية</title>
+        <title>Lambda Expression - مصطلحات تقنية</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lambda-expiration" class="md-skip">
+        <a href="#lambda-expression" class="md-skip">
           انتقل إلى المحتوى
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Lambda Expiration
+              Lambda Expression
             
           </span>
         </div>
@@ -1883,7 +1883,7 @@
   
   
   <span class="md-ellipsis">
-    Lambda Expiration
+    Lambda Expression
     
   </span>
   
@@ -1896,7 +1896,7 @@
   
   
   <span class="md-ellipsis">
-    Lambda Expiration
+    Lambda Expression
     
   </span>
   
@@ -1955,18 +1955,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#c-lambda-timeout" class="md-nav__link">
+  <a href="#c-ef-core-dto" class="md-nav__link">
     <span class="md-ellipsis">
-      مثال C# — Lambda تُنهي العمل بأمان قبل الـ Timeout وتراعي الإلغاء
+      مثال C# — استعلام EF Core بلامبدا + إسقاط إلى DTO
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#maximum-event-age-retries-cloudformationsam" class="md-nav__link">
+  <a href="#c" class="md-nav__link">
     <span class="md-ellipsis">
-      مثال إعداد — تحديد Maximum Event Age وRetries (CloudFormation/SAM)
+      مثال C# — بناء شجرة تعبير ديناميكيًا (فلترة مرنة)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c-linq" class="md-nav__link">
+    <span class="md-ellipsis">
+      مثال C# — LINQ في الذاكرة + أحداث
     </span>
   </a>
   
@@ -1975,7 +1984,7 @@
         <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      خطوات عملية لضبط “الانتهاء/الانقضاء”
+      خطوات عملية للاستخدام الصحيح
     </span>
   </a>
   
@@ -3444,18 +3453,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#c-lambda-timeout" class="md-nav__link">
+  <a href="#c-ef-core-dto" class="md-nav__link">
     <span class="md-ellipsis">
-      مثال C# — Lambda تُنهي العمل بأمان قبل الـ Timeout وتراعي الإلغاء
+      مثال C# — استعلام EF Core بلامبدا + إسقاط إلى DTO
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#maximum-event-age-retries-cloudformationsam" class="md-nav__link">
+  <a href="#c" class="md-nav__link">
     <span class="md-ellipsis">
-      مثال إعداد — تحديد Maximum Event Age وRetries (CloudFormation/SAM)
+      مثال C# — بناء شجرة تعبير ديناميكيًا (فلترة مرنة)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c-linq" class="md-nav__link">
+    <span class="md-ellipsis">
+      مثال C# — LINQ في الذاكرة + أحداث
     </span>
   </a>
   
@@ -3464,7 +3482,7 @@
         <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      خطوات عملية لضبط “الانتهاء/الانقضاء”
+      خطوات عملية للاستخدام الصحيح
     </span>
   </a>
   
@@ -3516,101 +3534,100 @@
   
 
 
-<h1 id="lambda-expiration"><strong>Lambda Expiration</strong><a class="headerlink" href="#lambda-expiration" title="Permanent link">&para;</a></h1>
+<h1 id="lambda-expression"><strong>Lambda Expression</strong><a class="headerlink" href="#lambda-expression" title="Permanent link">&para;</a></h1>
 <h2 id="_1">الترجمة الحرفية<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p><strong>Lambda Expiration</strong> — <strong>انتهاء وقت التنفيذ</strong> أو <strong>انقضاء صلاحية الحدث/الروابط</strong> في AWS Lambda.</p>
+<p><strong>Lambda Expression</strong> — <strong>تعبير لامبدا</strong> (دالة قصيرة بلا اسم تُمرَّر كقيمة).</p>
 <h2 id="_2">الوصف العربي المختصر<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>في AWS يُقصد بـ “Lambda Expiration” عادةً:<br />
-1) <strong>Timeout</strong>: الحدّ الأقصى لزمن تنفيذ الدالة (حتى <strong>15 دقيقة</strong>).<br />
-2) <strong>Maximum Event Age</strong>: العمر الأقصى للحدث في طابور الاستدعاء غير المتزامن (حتى <strong>6 ساعات</strong>).<br />
-3) <strong>SQS Visibility Timeout</strong> المرتبط بالمعالجة.<br />
-4) صلاحية عناصر تُنشئها الدالة مثل <strong>Presigned URLs</strong>. :contentReference[oaicite:0]{index=0}</p>
+<p>صيغة مختصرة لتعريف دوال <strong>مجهولة</strong> تُستخدم مع <strong>LINQ</strong>، <strong>الأحداث</strong>، و<strong>EF Core</strong>.<br />
+تُمثَّل بأنواع <strong>Func\&lt;…&gt; / Action\&lt;…&gt;</strong> أو كشجرة تعبير <strong>Expression\&lt;Func\&lt;…&gt;&gt;</strong>.</p>
 <h2 id="_3">الشرح المبسّط<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Function Timeout</strong>: إن لم تُنهِ الدالة خلال المهلة تُنهى بـ <strong>Timeout</strong>. الحد الأقصى 900 ثانية. :contentReference[oaicite:1]{index=1}  </li>
-<li><strong>Async Invocations</strong>: تضع Lambda الأحداث في طابور داخلي. لو فشلت/تأخرت: تُعاد المحاولة حتى حد <strong>المرّات</strong> وحد <strong>عمر الحدث</strong> (MaximumEventAgeInSeconds). عند تجاوزهما تُرسل للـ <strong>DLQ/Destination</strong>. أقصى عمر 21600 ثانية (6 ساعات). :contentReference[oaicite:2]{index=2}  </li>
-<li><strong>SQS Triggers</strong>: اضبط <strong>Visibility Timeout</strong> ≥ <strong>6×</strong> مهلة الدالة لتسمح بإعادات المحاولة عند الخنق/التباطؤ. :contentReference[oaicite:3]{index=3}  </li>
-<li><strong>Presigned URLs</strong>: صلاحيتها تحددها أنت عند إنشائها. إن استُخدمت <strong>اعتمادات مؤقتة</strong> (Roles) قد تُقيَّد بحد جلسة (كثيرًا ≈ ساعة). :contentReference[oaicite:4]{index=4}</li>
+<li>الشكل: <code>(المعاملات) =&gt; جسم</code>. مثال: <code>x =&gt; x * 2</code>.  </li>
+<li>إن كان <strong>جسمًا واحدًا</strong> فبدون <code>{}</code> و<code>return</code>.  </li>
+<li>مع المجموعات في الذاكرة: تُنفَّذ مباشرة (Delegates).  </li>
+<li>مع مزوّد استعلام (EF/Core): تُحوَّل إلى <strong>شجرة تعبير</strong> تُترجَم إلى SQL.</li>
 </ul>
 <h2 id="_4">تشبيه<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>“بيتزا في الفرن”:<br />
-- <strong>Timeout</strong> = أقصى وقت للخبز قبل أن تُخرجها المنظومة.<br />
-- <strong>Event Age</strong> = أقصى زمن مسموح للطلب في طابور الأفران قبل التخلص منه.<br />
-- <strong>SQS Visibility</strong> = مدة إخفاء الطلب عن طابور الانتظار أثناء خبزه.<br />
-- <strong>Presigned URL</strong> = كوبون خصم له <strong>تاريخ انتهاء</strong>.</p>
+<p><strong>ملاحظة لشرط</strong> تسلّمها لدالة أخرى: “أرجع العناصر التي ينطبق عليها هذا الشرط”.</p>
 <hr />
-<h2 id="c-lambda-timeout">مثال C# — Lambda تُنهي العمل بأمان قبل الـ <strong>Timeout</strong> وتراعي الإلغاء<a class="headerlink" href="#c-lambda-timeout" title="Permanent link">&para;</a></h2>
-<div class="highlight"><span class="filename">C#</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// .NET 8 — Amazon.Lambda.AspNetCoreServer أو Minimal Lambda</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">// dotnet add package Amazon.Lambda.Core</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">using</span><span class="w"> </span><span class="nn">Amazon.Lambda.Core</span><span class="p">;</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">using</span><span class="w"> </span><span class="nn">System.Net.Http</span><span class="p">;</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Function</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">{</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">HttpClient</span><span class="w"> </span><span class="n">_http</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromSeconds</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="p">};</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="c1">// handler: يعتمد توقيع مشروعك (API Gateway/Function URL/Custom)</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="n">Task</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">FunctionHandler</span><span class="p">(</span><span class="kt">object</span><span class="w"> </span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="n">ILambdaContext</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">CancellationToken</span><span class="w"> </span><span class="n">ct</span><span class="p">)</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="p">{</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">        </span><span class="c1">// كم تبقّى من المهلة؟</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">remaining</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">RemainingTime</span><span class="p">;</span><span class="w"> </span><span class="c1">// مثال: 00:00:07.123</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">        </span><span class="c1">// إن تبقى أقل من هامش أمان، أعدّ ردًا مبكرًا بدل أن تتسبب بـ Timeout</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">remaining</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromSeconds</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;will-timeout-soon&quot;</span><span class="p">;</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">        </span><span class="k">using</span><span class="w"> </span><span class="nn">var</span><span class="w"> </span><span class="n">linked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CancellationTokenSource</span><span class="p">.</span><span class="n">CreateLinkedTokenSource</span><span class="p">(</span><span class="n">ct</span><span class="p">);</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">        </span><span class="c1">// هامش أمان 2 ث قبل نهاية Lambda</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">        </span><span class="n">linked</span><span class="p">.</span><span class="n">CancelAfter</span><span class="p">(</span><span class="n">remaining</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromSeconds</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">        </span><span class="c1">// مثال: نداء خارجي سريع</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_http</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">(</span><span class="s">&quot;https://example.com/health&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">linked</span><span class="p">.</span><span class="n">Token</span><span class="p">);</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">res</span><span class="p">.</span><span class="n">IsSuccessStatusCode</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;ok&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;upstream-error&quot;</span><span class="p">;</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="p">}</span>
+<h2 id="c-ef-core-dto">مثال C# — استعلام EF Core بلامبدا + إسقاط إلى DTO<a class="headerlink" href="#c-ef-core-dto" title="Permanent link">&para;</a></h2>
+<div class="highlight"><span class="filename">C#</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// البحث عن موظف نشِط، وإرجاع حقول محددة (يُترجم إلى SQL)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">dto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">Employees</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="p">.</span><span class="n">AsNoTracking</span><span class="p">()</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">EmpId</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">IsActive</span><span class="p">)</span><span class="w">      </span><span class="c1">// Expression&lt;Func&lt;Employee,bool&gt;&gt;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">EmployeeDto</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">EmpId</span><span class="p">,</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">FullName</span><span class="w"> </span><span class="p">})</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="p">.</span><span class="n">FirstOrDefaultAsync</span><span class="p">(</span><span class="n">ct</span><span class="p">);</span><span class="w">                     </span><span class="c1">// يعيد null إن لم يوجد</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dto</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">Results</span><span class="p">.</span><span class="n">NotFound</span><span class="p">();</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="k">return</span><span class="w"> </span><span class="n">Results</span><span class="p">.</span><span class="n">Ok</span><span class="p">(</span><span class="n">dto</span><span class="p">);</span>
 </code></pre></div>
-<p><strong>الفكرة:</strong> استخدم <code>ctx.RemainingTime</code> + <code>CancellationToken</code> لتتجنّب <strong>Timeout</strong> غير المتحكَّم فيه.</p>
+<p><strong>نقاط سريعة:</strong><br />
+- لا تضع <code>.ToList()</code> قبل <code>Where/Select</code> مع EF.<br />
+- تجنّب استدعاء دوال غير قابلة للترجمة داخل الشرط (استخدم <code>EF.Functions</code> عند الحاجة).</p>
 <hr />
-<h2 id="maximum-event-age-retries-cloudformationsam">مثال إعداد — تحديد <strong>Maximum Event Age</strong> و<strong>Retries</strong> (CloudFormation/SAM)<a class="headerlink" href="#maximum-event-age-retries-cloudformationsam" title="Permanent link">&para;</a></h2>
-<div class="highlight"><span class="filename">YAML</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">Resources</span><span class="p">:</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">MyFunc</span><span class="p">:</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::Lambda::Function</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">      </span><span class="nt">Runtime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dotnet8</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span><span class="nt">Handler</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Function::Function.FunctionHandler</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="nt">Role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arn:aws:iam::123456789012:role/my-func-role</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="nt">Timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span><span class="w">             </span><span class="c1"># 60s (الحد الأقصى 900s)</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="nt">MyFuncInvokeCfg</span><span class="p">:</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::Lambda::EventInvokeConfig</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">      </span><span class="nt">FunctionName</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyFunc</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">      </span><span class="nt">Qualifier</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;$LATEST&quot;</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">      </span><span class="nt">MaximumRetryAttempts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w">             </span><span class="c1"># محاولتان عند Async</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">      </span><span class="nt">MaximumEventAgeInSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">21600</span><span class="w">     </span><span class="c1"># 6 ساعات (أقصى حد)</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">      </span><span class="nt">DestinationConfig</span><span class="p">:</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">        </span><span class="nt">OnFailure</span><span class="p">:</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">          </span><span class="nt">Destination</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arn:aws:sqs:us-east-1:123456789012:dead-letter</span>
+<h2 id="c">مثال C# — بناء <strong>شجرة تعبير</strong> ديناميكيًا (فلترة مرنة)<a class="headerlink" href="#c" title="Permanent link">&para;</a></h2>
+<div class="highlight"><span class="filename">C#</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">using</span><span class="w"> </span><span class="nn">System.Linq.Expressions</span><span class="p">;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">Expression</span><span class="o">&lt;</span><span class="n">Func</span><span class="o">&lt;</span><span class="n">Employee</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">BuildPredicate</span><span class="p">(</span><span class="kt">int?</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="kt">string?</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">{</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Expression</span><span class="p">.</span><span class="n">Parameter</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">Employee</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;e&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">Expression</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Expression</span><span class="p">.</span><span class="n">Constant</span><span class="p">(</span><span class="k">true</span><span class="p">);</span><span class="w"> </span><span class="c1">// يبدأ دائمًا بصحيح</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">idEq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Expression</span><span class="p">.</span><span class="n">Equal</span><span class="p">(</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">            </span><span class="n">Expression</span><span class="p">.</span><span class="n">Property</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="k">nameof</span><span class="p">(</span><span class="n">Employee</span><span class="p">.</span><span class="n">EmpId</span><span class="p">)),</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">            </span><span class="n">Expression</span><span class="p">.</span><span class="n">Constant</span><span class="p">(</span><span class="n">id</span><span class="p">.</span><span class="n">Value</span><span class="p">));</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="n">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Expression</span><span class="p">.</span><span class="n">AndAlso</span><span class="p">(</span><span class="n">body</span><span class="p">,</span><span class="w"> </span><span class="n">idEq</span><span class="p">);</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrWhiteSpace</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">nameProp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Expression</span><span class="p">.</span><span class="n">Property</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="k">nameof</span><span class="p">(</span><span class="n">Employee</span><span class="p">.</span><span class="n">FullName</span><span class="p">));</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">typeof</span><span class="p">(</span><span class="kt">string</span><span class="p">).</span><span class="n">GetMethod</span><span class="p">(</span><span class="k">nameof</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Contains</span><span class="p">),</span><span class="w"> </span><span class="k">new</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">typeof</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">})</span><span class="o">!</span><span class="p">;</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">call</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Expression</span><span class="p">.</span><span class="n">Call</span><span class="p">(</span><span class="n">nameProp</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="p">,</span><span class="w"> </span><span class="n">Expression</span><span class="p">.</span><span class="n">Constant</span><span class="p">(</span><span class="n">name</span><span class="p">));</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">        </span><span class="n">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Expression</span><span class="p">.</span><span class="n">AndAlso</span><span class="p">(</span><span class="n">body</span><span class="p">,</span><span class="w"> </span><span class="n">call</span><span class="p">);</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Expression</span><span class="p">.</span><span class="n">Lambda</span><span class="o">&lt;</span><span class="n">Func</span><span class="o">&lt;</span><span class="n">Employee</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">body</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">);</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="p">}</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="c1">// استخدام:</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="kt">var</span><span class="w"> </span><span class="n">pred</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BuildPredicate</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1001</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Kareem&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="kt">var</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">Employees</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">pred</span><span class="p">).</span><span class="n">ToListAsync</span><span class="p">(</span><span class="n">ct</span><span class="p">);</span>
 </code></pre></div>
-<blockquote>
-<p><strong>مهم:</strong> لا تجعل وقت <strong>SQS Visibility</strong> أقل من مهلة الدالة—يفضل <strong>≥ 6×</strong>. :contentReference[oaicite:5]{index=5}</p>
-</blockquote>
 <hr />
-<h2 id="_5">خطوات عملية لضبط “الانتهاء/الانقضاء”<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="c-linq">مثال C# — LINQ في الذاكرة + أحداث<a class="headerlink" href="#c-linq" title="Permanent link">&para;</a></h2>
+<div class="highlight"><span class="filename">C#</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// 1) في الذاكرة: delegates (Func/Action)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">nums</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kt">var</span><span class="w"> </span><span class="n">evens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nums</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">).</span><span class="n">ToList</span><span class="p">();</span><span class="w">  </span><span class="c1">// n =&gt; شرط</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1">// 2) حدث بلامبدا</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">button</span><span class="p">.</span><span class="n">Click</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Clicked!&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1">// 3) لامبدا متعددة الأسطر</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="n">Func</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kt">var</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+</code></pre></div>
+<hr />
+<h2 id="_5">خطوات عملية للاستخدام الصحيح<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>اضبط Timeout بدقة</strong>: اجعله قريبًا من الزمن الفعلي + هامش صغير؛ راقب أخطاء <code>Task timed out</code>. :contentReference[oaicite:6]{index=6}  </li>
-<li><strong>احترم الإلغاء</strong>: مرّر <code>CancellationToken</code> لكل I/O، واخرج مبكرًا عند اقتراب انتهاء المهلة.  </li>
-<li><strong>Async Invocations</strong>: عيّن <strong>MaximumEventAge</strong> و<strong>Retries</strong>، وفعّل <strong>DLQ/Destination</strong> للأحداث الساقطة. :contentReference[oaicite:7]{index=7}  </li>
-<li><strong>SQS Trigger</strong>: اضبط <strong>Visibility Timeout ≥ 6×</strong> مهلة الدالة؛ وفكّر في <strong>DLQ</strong>. :contentReference[oaicite:8]{index=8}  </li>
-<li><strong>Presigned URLs</strong>: اختر صلاحية قصيرة تكفي الاستخدام، وتذكّر حدود الجلسات عند الاعتمادات المؤقتة. :contentReference[oaicite:9]{index=9}  </li>
-<li><strong>مراقبة</strong>: راقب <code>AsyncEventAge</code> و%timeouts، ونبّه عند ارتفاعهما. :contentReference[oaicite:10]{index=10}</li>
+<li><strong>اختر النوع المناسب</strong>:  </li>
+<li>تنفيذ في الذاكرة → <code>Func&lt;&gt;/Action&lt;&gt;</code>.  </li>
+<li>ترجمة (EF/Core) → <code>Expression&lt;Func&lt;…&gt;&gt;</code>.  </li>
+<li><strong>اجعل الشروط قابلة للترجمة</strong> (لا مناداة <code>DateTime.Now.ToString()</code> داخل <code>Where</code>).  </li>
+<li><strong>أسقط إلى DTO</strong> بـ <code>Select</code> لتقليل البيانات.  </li>
+<li><strong>تجنّب الإغلاق الخطِر (Closure)</strong>: لا تعتمد على متغيّرات ستتغيّر لاحقًا.  </li>
+<li><strong>قصّر اللامبدا</strong>: إن طالت، انقل المنطق إلى دالة مسماة قابلة للاختبار.  </li>
+<li><strong>أضِف الإلغاء</strong> مع الاستدعاءات غير المتزامنة (<code>…Async(ct)</code>).</li>
 </ol>
 <hr />
 <h2 id="_6">أخطاء شائعة<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <ul>
-<li>الاعتماد على وقت تنفيذ طويل دون تقسيم → وصول سريع لحد <strong>15 دقيقة</strong>. :contentReference[oaicite:11]{index=11}  </li>
-<li>نسيان <strong>DLQ/Destinations</strong> في الاستدعاء غير المتزامن → ضياع أحداث بعد انتهاء عمرها. :contentReference[oaicite:12]{index=12}  </li>
-<li><strong>SQS Visibility</strong> أقصر من مهلة الدالة → إعادة تسليم مبكّرة ورسائل مكررة. :contentReference[oaicite:13]{index=13}  </li>
-<li>توليد <strong>Presigned URL</strong> بعمر أطول من الحاجة أو عدم مراعاة حدود الاعتمادات المؤقتة. :contentReference[oaicite:14]{index=14}</li>
+<li>استعمال <code>.ToList()</code> قبل الفلاتر مع EF → تحميل زائد من DB.  </li>
+<li>دوال غير قابلة للترجمة داخل اللامبدا → استثناء أو تقييم كلّي في الذاكرة.  </li>
+<li>خلط <code>Func&lt;&gt;</code> مع <code>Expression&lt;Func&lt;&gt;&gt;</code> في واجهات تتوقع ترجمة.  </li>
+<li>لامبدا تطول وتتعقّد → صعوبة قراءة واختبار.  </li>
+<li>إغلاق (Closure) يمسك مراجع تتغير → نتائج غير متوقّعة.</li>
 </ul>
 <hr />
 <h2 id="_7">جدول مقارنة مختصر<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
@@ -3624,32 +3641,37 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>Function Timeout</strong></td>
-<td>أقصى زمن تنفيذ للدالة</td>
-<td>حد أقصى <strong>900s</strong> (15m)؛ اضبط قريبًا من الواقع. :contentReference[oaicite:15]{index=15}</td>
+<td><strong>Lambda Expression</strong></td>
+<td>تعريف دالة قصيرة بلا اسم</td>
+<td>صيغة <code>=&gt;</code>، تُستخدم في LINQ/الأحداث</td>
 </tr>
 <tr>
-<td><strong>Maximum Event Age</strong> (Async)</td>
-<td>عمر الحدث في طابور Lambda</td>
-<td>حد أقصى <strong>6h</strong>؛ بعده تُرسل للـ DLQ/Destination. :contentReference[oaicite:16]{index=16}</td>
+<td><strong>Func / Action</strong></td>
+<td>مندوب للتنفيذ الفوري</td>
+<td>للذاكرة؛ لا ترجمة إلى SQL</td>
 </tr>
 <tr>
-<td><strong>SQS Visibility Timeout</strong></td>
-<td>إخفاء الرسالة أثناء المعالجة</td>
-<td>أوصِ بـ <strong>≥ 6×</strong> مهلة الدالة لتفادي التكرار. :contentReference[oaicite:17]{index=17}</td>
+<td><strong>Expression\&lt;Func\&lt;…&gt;&gt;</strong></td>
+<td>شجرة تعبير</td>
+<td>مطلوبة لمزوّدات LINQ (EF)</td>
 </tr>
 <tr>
-<td><strong>Presigned URL Expiration</strong></td>
-<td>صلاحية رابط موقّع (مثل S3)</td>
-<td>تحددها عند الإنشاء؛ قد تُقيَّد بجلسة مؤقتة. :contentReference[oaicite:18]{index=18}</td>
+<td>Anonymous Method</td>
+<td><code>delegate(...) { ... }</code></td>
+<td>بديل أقدم للامبدا</td>
+</tr>
+<tr>
+<td>Method Group</td>
+<td>تميرير اسم دالة مباشرة</td>
+<td>يتحوّل إلى مندوب تلقائيًا</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="_8">ملخص الفكرة<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
-<p>“<strong>Lambda Expiration</strong>” يشمل <strong>Timeout التنفيذ</strong>، <strong>عمر الحدث</strong> في الاستدعاء غير المتزامن،<br />
-وضبط <strong>SQS Visibility</strong> وصلاحية روابط مثل <strong>Presigned URLs</strong>.<br />
-اضبط هذه الحدود بوعي، احترم الإلغاء، وفَعِّل <strong>DLQ/Destinations</strong>—تحصل على نظام <strong>مُوثوق</strong> يتفادى ضياع الرسائل و<strong>Timeouts</strong> غير الضرورية.</p>
+<p><strong>Lambda Expression</strong> = طريقة سريعة لتعريف دالة وتمريرها كقيمة.<br />
+مع <strong>LINQ/EF</strong> تمنحك استعلامات نظيفة وقابلة للترجمة،<br />
+ومع الأحداث/القوائم تُسهّل الكتابة المختصرة—استخدمها بحذر، وبنمط واضح قابِل للاختبار.</p>
 
 
 

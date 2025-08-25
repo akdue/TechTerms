@@ -1,124 +1,129 @@
-# **Lambda Expiration**
+# **Lambda Expression**
 
-## الترجمة الحرفية  
-**Lambda Expiration** — **انتهاء وقت التنفيذ** أو **انقضاء صلاحية الحدث/الروابط** في AWS Lambda.
+## الترجمة الحرفية 
+**Lambda Expression** — **تعبير لامبدا** (دالة قصيرة بلا اسم تُمرَّر كقيمة).
 
 ## الوصف العربي المختصر  
-في AWS يُقصد بـ “Lambda Expiration” عادةً:  
-1) **Timeout**: الحدّ الأقصى لزمن تنفيذ الدالة (حتى **15 دقيقة**).  
-2) **Maximum Event Age**: العمر الأقصى للحدث في طابور الاستدعاء غير المتزامن (حتى **6 ساعات**).  
-3) **SQS Visibility Timeout** المرتبط بالمعالجة.  
-4) صلاحية عناصر تُنشئها الدالة مثل **Presigned URLs**. :contentReference[oaicite:0]{index=0}
+صيغة مختصرة لتعريف دوال **مجهولة** تُستخدم مع **LINQ**، **الأحداث**، و**EF Core**.  
+تُمثَّل بأنواع **Func\<…\> / Action\<…\>** أو كشجرة تعبير **Expression\<Func\<…\>\>**.
 
 ## الشرح المبسّط  
-- **Function Timeout**: إن لم تُنهِ الدالة خلال المهلة تُنهى بـ **Timeout**. الحد الأقصى 900 ثانية. :contentReference[oaicite:1]{index=1}  
-- **Async Invocations**: تضع Lambda الأحداث في طابور داخلي. لو فشلت/تأخرت: تُعاد المحاولة حتى حد **المرّات** وحد **عمر الحدث** (MaximumEventAgeInSeconds). عند تجاوزهما تُرسل للـ **DLQ/Destination**. أقصى عمر 21600 ثانية (6 ساعات). :contentReference[oaicite:2]{index=2}  
-- **SQS Triggers**: اضبط **Visibility Timeout** ≥ **6×** مهلة الدالة لتسمح بإعادات المحاولة عند الخنق/التباطؤ. :contentReference[oaicite:3]{index=3}  
-- **Presigned URLs**: صلاحيتها تحددها أنت عند إنشائها. إن استُخدمت **اعتمادات مؤقتة** (Roles) قد تُقيَّد بحد جلسة (كثيرًا ≈ ساعة). :contentReference[oaicite:4]{index=4}
+- الشكل: `(المعاملات) => جسم`. مثال: `x => x * 2`.  
+- إن كان **جسمًا واحدًا** فبدون `{}` و`return`.  
+- مع المجموعات في الذاكرة: تُنفَّذ مباشرة (Delegates).  
+- مع مزوّد استعلام (EF/Core): تُحوَّل إلى **شجرة تعبير** تُترجَم إلى SQL.
 
 ## تشبيه  
-“بيتزا في الفرن”:  
-- **Timeout** = أقصى وقت للخبز قبل أن تُخرجها المنظومة.  
-- **Event Age** = أقصى زمن مسموح للطلب في طابور الأفران قبل التخلص منه.  
-- **SQS Visibility** = مدة إخفاء الطلب عن طابور الانتظار أثناء خبزه.  
-- **Presigned URL** = كوبون خصم له **تاريخ انتهاء**.
+**ملاحظة لشرط** تسلّمها لدالة أخرى: “أرجع العناصر التي ينطبق عليها هذا الشرط”.
 
 ---
 
-## مثال C# — Lambda تُنهي العمل بأمان قبل الـ **Timeout** وتراعي الإلغاء
+## مثال C# — استعلام EF Core بلامبدا + إسقاط إلى DTO
 
 ```csharp
-// .NET 8 — Amazon.Lambda.AspNetCoreServer أو Minimal Lambda
-// dotnet add package Amazon.Lambda.Core
-using Amazon.Lambda.Core;
-using System.Net.Http;
+// البحث عن موظف نشِط، وإرجاع حقول محددة (يُترجم إلى SQL)
+var dto = await _context.Employees
+    .AsNoTracking()
+    .Where(e => e.EmpId == id && e.IsActive)      // Expression<Func<Employee,bool>>
+    .Select(e => new EmployeeDto { Id = e.EmpId, Name = e.FullName })
+    .FirstOrDefaultAsync(ct);                     // يعيد null إن لم يوجد
 
-public class Function
+if (dto is null) return Results.NotFound();
+return Results.Ok(dto);
+```
+
+**نقاط سريعة:**  
+- لا تضع `.ToList()` قبل `Where/Select` مع EF.  
+- تجنّب استدعاء دوال غير قابلة للترجمة داخل الشرط (استخدم `EF.Functions` عند الحاجة).
+
+---
+
+## مثال C# — بناء **شجرة تعبير** ديناميكيًا (فلترة مرنة)
+
+```csharp
+using System.Linq.Expressions;
+
+Expression<Func<Employee, bool>> BuildPredicate(int? id, string? name)
 {
-    private static readonly HttpClient _http = new() { Timeout = TimeSpan.FromSeconds(5) };
+    var p = Expression.Parameter(typeof(Employee), "e");
+    Expression body = Expression.Constant(true); // يبدأ دائمًا بصحيح
 
-    // handler: يعتمد توقيع مشروعك (API Gateway/Function URL/Custom)
-    public async Task<string> FunctionHandler(object input, ILambdaContext ctx, CancellationToken ct)
+    if (id is not null)
     {
-        // كم تبقّى من المهلة؟
-        var remaining = ctx.RemainingTime; // مثال: 00:00:07.123
-
-        // إن تبقى أقل من هامش أمان، أعدّ ردًا مبكرًا بدل أن تتسبب بـ Timeout
-        if (remaining < TimeSpan.FromSeconds(3))
-            return "will-timeout-soon";
-
-        using var linked = CancellationTokenSource.CreateLinkedTokenSource(ct);
-        // هامش أمان 2 ث قبل نهاية Lambda
-        linked.CancelAfter(remaining - TimeSpan.FromSeconds(2));
-
-        // مثال: نداء خارجي سريع
-        var res = await _http.GetAsync("https://example.com/health", linked.Token);
-        return res.IsSuccessStatusCode ? "ok" : "upstream-error";
+        var idEq = Expression.Equal(
+            Expression.Property(p, nameof(Employee.EmpId)),
+            Expression.Constant(id.Value));
+        body = Expression.AndAlso(body, idEq);
     }
+
+    if (!string.IsNullOrWhiteSpace(name))
+    {
+        var nameProp = Expression.Property(p, nameof(Employee.FullName));
+        var method = typeof(string).GetMethod(nameof(string.Contains), new[] { typeof(string) })!;
+        var call = Expression.Call(nameProp, method, Expression.Constant(name));
+        body = Expression.AndAlso(body, call);
+    }
+
+    return Expression.Lambda<Func<Employee, bool>>(body, p);
 }
-```
 
-**الفكرة:** استخدم `ctx.RemainingTime` + `CancellationToken` لتتجنّب **Timeout** غير المتحكَّم فيه.
+// استخدام:
+var pred = BuildPredicate(id: 1001, name: "Kareem");
+var list = await _context.Employees.Where(pred).ToListAsync(ct);
+```
 
 ---
 
-## مثال إعداد — تحديد **Maximum Event Age** و**Retries** (CloudFormation/SAM)
+## مثال C# — LINQ في الذاكرة + أحداث
 
-```yaml
-Resources:
-  MyFunc:
-    Type: AWS::Lambda::Function
-    Properties:
-      Runtime: dotnet8
-      Handler: Function::Function.FunctionHandler
-      Role: arn:aws:iam::123456789012:role/my-func-role
-      Timeout: 60             # 60s (الحد الأقصى 900s)
-  MyFuncInvokeCfg:
-    Type: AWS::Lambda::EventInvokeConfig
-    Properties:
-      FunctionName: !Ref MyFunc
-      Qualifier: "$LATEST"
-      MaximumRetryAttempts: 2             # محاولتان عند Async
-      MaximumEventAgeInSeconds: 21600     # 6 ساعات (أقصى حد)
-      DestinationConfig:
-        OnFailure:
-          Destination: arn:aws:sqs:us-east-1:123456789012:dead-letter
+```csharp
+// 1) في الذاكرة: delegates (Func/Action)
+var nums = new[] { 1, 2, 3, 4, 5 };
+var evens = nums.Where(n => n % 2 == 0).ToList();  // n => شرط
+
+// 2) حدث بلامبدا
+button.Click += (s, e) => Console.WriteLine("Clicked!");
+
+// 3) لامبدا متعددة الأسطر
+Func<int, int, int> sum = (a, b) => { var s = a + b; return s; };
 ```
-
-> **مهم:** لا تجعل وقت **SQS Visibility** أقل من مهلة الدالة—يفضل **≥ 6×**. :contentReference[oaicite:5]{index=5}
 
 ---
 
-## خطوات عملية لضبط “الانتهاء/الانقضاء”
-1. **اضبط Timeout بدقة**: اجعله قريبًا من الزمن الفعلي + هامش صغير؛ راقب أخطاء `Task timed out`. :contentReference[oaicite:6]{index=6}  
-2. **احترم الإلغاء**: مرّر `CancellationToken` لكل I/O، واخرج مبكرًا عند اقتراب انتهاء المهلة.  
-3. **Async Invocations**: عيّن **MaximumEventAge** و**Retries**، وفعّل **DLQ/Destination** للأحداث الساقطة. :contentReference[oaicite:7]{index=7}  
-4. **SQS Trigger**: اضبط **Visibility Timeout ≥ 6×** مهلة الدالة؛ وفكّر في **DLQ**. :contentReference[oaicite:8]{index=8}  
-5. **Presigned URLs**: اختر صلاحية قصيرة تكفي الاستخدام، وتذكّر حدود الجلسات عند الاعتمادات المؤقتة. :contentReference[oaicite:9]{index=9}  
-6. **مراقبة**: راقب `AsyncEventAge` و%timeouts، ونبّه عند ارتفاعهما. :contentReference[oaicite:10]{index=10}
+## خطوات عملية للاستخدام الصحيح
+1. **اختر النوع المناسب**:  
+   - تنفيذ في الذاكرة → `Func<>/Action<>`.  
+   - ترجمة (EF/Core) → `Expression<Func<…>>`.  
+2. **اجعل الشروط قابلة للترجمة** (لا مناداة `DateTime.Now.ToString()` داخل `Where`).  
+3. **أسقط إلى DTO** بـ `Select` لتقليل البيانات.  
+4. **تجنّب الإغلاق الخطِر (Closure)**: لا تعتمد على متغيّرات ستتغيّر لاحقًا.  
+5. **قصّر اللامبدا**: إن طالت، انقل المنطق إلى دالة مسماة قابلة للاختبار.  
+6. **أضِف الإلغاء** مع الاستدعاءات غير المتزامنة (`…Async(ct)`).
 
 ---
 
 ## أخطاء شائعة
-- الاعتماد على وقت تنفيذ طويل دون تقسيم → وصول سريع لحد **15 دقيقة**. :contentReference[oaicite:11]{index=11}  
-- نسيان **DLQ/Destinations** في الاستدعاء غير المتزامن → ضياع أحداث بعد انتهاء عمرها. :contentReference[oaicite:12]{index=12}  
-- **SQS Visibility** أقصر من مهلة الدالة → إعادة تسليم مبكّرة ورسائل مكررة. :contentReference[oaicite:13]{index=13}  
-- توليد **Presigned URL** بعمر أطول من الحاجة أو عدم مراعاة حدود الاعتمادات المؤقتة. :contentReference[oaicite:14]{index=14}
+- استعمال `.ToList()` قبل الفلاتر مع EF → تحميل زائد من DB.  
+- دوال غير قابلة للترجمة داخل اللامبدا → استثناء أو تقييم كلّي في الذاكرة.  
+- خلط `Func<>` مع `Expression<Func<>>` في واجهات تتوقع ترجمة.  
+- لامبدا تطول وتتعقّد → صعوبة قراءة واختبار.  
+- إغلاق (Closure) يمسك مراجع تتغير → نتائج غير متوقّعة.
 
 ---
 
 ## جدول مقارنة مختصر
 
-| المفهوم                       | الغرض الرئيسي                | ملاحظات مهمة                                                                           |
-| ----------------------------- | ---------------------------- | -------------------------------------------------------------------------------------- |
-| **Function Timeout**          | أقصى زمن تنفيذ للدالة        | حد أقصى **900s** (15m)؛ اضبط قريبًا من الواقع. :contentReference[oaicite:15]{index=15}  |
-| **Maximum Event Age** (Async) | عمر الحدث في طابور Lambda    | حد أقصى **6h**؛ بعده تُرسل للـ DLQ/Destination. :contentReference[oaicite:16]{index=16} |
-| **SQS Visibility Timeout**    | إخفاء الرسالة أثناء المعالجة | أوصِ بـ **≥ 6×** مهلة الدالة لتفادي التكرار. :contentReference[oaicite:17]{index=17}    |
-| **Presigned URL Expiration**  | صلاحية رابط موقّع (مثل S3)    | تحددها عند الإنشاء؛ قد تُقيَّد بجلسة مؤقتة. :contentReference[oaicite:18]{index=18}       |
+| المفهوم                     | الغرض الرئيسي            | ملاحظات مهمة                      |
+| --------------------------- | ------------------------ | --------------------------------- |
+| **Lambda Expression**       | تعريف دالة قصيرة بلا اسم | صيغة `=>`، تُستخدم في LINQ/الأحداث |
+| **Func / Action**           | مندوب للتنفيذ الفوري     | للذاكرة؛ لا ترجمة إلى SQL         |
+| **Expression\<Func\<…\>\>** | شجرة تعبير               | مطلوبة لمزوّدات LINQ (EF)          |
+| Anonymous Method            | `delegate(...) { ... }`  | بديل أقدم للامبدا                 |
+| Method Group                | تميرير اسم دالة مباشرة   | يتحوّل إلى مندوب تلقائيًا           |
 
 ---
 
 ## ملخص الفكرة  
-“**Lambda Expiration**” يشمل **Timeout التنفيذ**، **عمر الحدث** في الاستدعاء غير المتزامن،  
-وضبط **SQS Visibility** وصلاحية روابط مثل **Presigned URLs**.  
-اضبط هذه الحدود بوعي، احترم الإلغاء، وفَعِّل **DLQ/Destinations**—تحصل على نظام **مُوثوق** يتفادى ضياع الرسائل و**Timeouts** غير الضرورية.
+**Lambda Expression** = طريقة سريعة لتعريف دالة وتمريرها كقيمة.  
+مع **LINQ/EF** تمنحك استعلامات نظيفة وقابلة للترجمة،  
+ومع الأحداث/القوائم تُسهّل الكتابة المختصرة—استخدمها بحذر، وبنمط واضح قابِل للاختبار.
