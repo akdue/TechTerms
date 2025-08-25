@@ -1,7 +1,7 @@
 # mkdocs.yml — Root configuration for MkDocs (Material)
 # This config builds an Arabic (RTL) docs site with clean LTR code blocks.
 
-site_name: "مصطلحات برمجية"                       # Header title + <title>.
+site_name: "مصطلحات تقنية"                       # Header title + <title>.
 site_description: "Arabic tech terms with clean RTL + LTR code blocks"
 site_url: ""                                       # Public URL (leave empty for local dev).
 site_author: "Abdalkreem"
